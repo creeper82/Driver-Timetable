@@ -20,6 +20,10 @@ body {
     flex-direction: column;
 }
 
+.flex_filler {
+    flex: 1;
+}
+
 .bus_destination {
     display: flex;
     font-size: 2em;
@@ -153,14 +157,14 @@ footer {
     display: none;
 }
 
-#load_route, #start_route {
+.button {
     border: 2px solid black;
     border-radius: 4px;
     padding: 0.1em;
     font-size: 1.2em;
 }
 
-#load_route:hover, #start_route:hover {
+.button:hover {
     cursor: pointer;
     background-color: rgb(176, 216, 248);
 }
