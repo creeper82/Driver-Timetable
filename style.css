@@ -1,6 +1,7 @@
 :root {
-    --primary: #941818;
-    --stop-circle-size: 1.5em;
+    --primary: #157733;
+    --current-stop-text-color: white;
+    --stop-circle-size: 1.4em;
     --circle-line-thickness: 8px;
 }
 
@@ -14,6 +15,35 @@ html {
 
 body {
     margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.bus_destination {
+    display: flex;
+    font-size: 2em;
+    padding: 0.2em;
+    gap: 0.5em;
+    align-items: center;
+    border-bottom: 5px solid black;
+}
+
+.destination_number {
+    border: 6px solid var(--primary);
+    border-radius: 8px;
+    padding: 0.2em;
+    flex: 0;
+}
+
+.destination_name {
+    font-weight: bold;
+    flex: 1;
+}
+
+.clock {
+    margin: 0 0.5em;
+    flex: 0;
 }
 
 .stop {
@@ -21,8 +51,8 @@ body {
     align-items: center;
     padding: 0 1em;
     flex: 1;
-    max-height: 3.2em;
-    min-height: 2.6em;
+    max-height: 4.6em;
+    min-height: 4em;
 }
 
 .current_stop {
@@ -33,6 +63,8 @@ body {
     display: flex;
     flex-direction: column-reverse;
     overflow-y: hidden;
+    font-size: 1.2em;
+    border-bottom: 5px solid black;
 }
 
 .stop_indicator_container {
@@ -72,12 +104,15 @@ body {
     top: 50%;
 }
 
+.stop.current_stop .stop_indicator {
+    border-color: black;
+}
+
 .stop_name {
     display: block;
-    color: var(--primary);
+    color: black;
     border-radius: 4px;
-    margin: 0.4em;
-    padding: 0.1em;
+    margin: 0 0.3em;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -86,5 +121,20 @@ body {
 
 .current_stop .stop_name {
     font-weight: bold;
-    background-color: #ffffff;
+    color: var(--current-stop-text-color);
+}
+
+.current_stop .stop_time {
+    color: var(--current-stop-text-color);
+}
+
+.stop_time {
+    margin: 0 0.3em;
+    color: gray;
+    font-size: 0.7em;
+}
+
+.stop_description {
+    display: flex;
+    flex-direction: column;
 }
