@@ -27,6 +27,7 @@ body {
     gap: 0.5em;
     align-items: center;
     border-bottom: 5px solid black;
+    flex: 0;
 }
 
 .destination_number {
@@ -65,6 +66,7 @@ body {
     overflow-y: hidden;
     font-size: 1.2em;
     border-bottom: 5px solid black;
+    flex: 1;
 }
 
 .stop_indicator_container {
@@ -137,4 +139,28 @@ body {
 .stop_description {
     display: flex;
     flex-direction: column;
+}
+
+footer {
+    flex: 0;
+    padding: 0.5em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+#load_route_input {
+    display: none;
+}
+
+#load_route, #start_route {
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 0.1em;
+    font-size: 1.2em;
+}
+
+#load_route:hover, #start_route:hover {
+    cursor: pointer;
+    background-color: rgb(176, 216, 248);
 }
