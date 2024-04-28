@@ -1,0 +1,90 @@
+:root {
+    --primary: #941818;
+    --stop-circle-size: 1.5em;
+    --circle-line-thickness: 8px;
+}
+
+html {
+    font-family: Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.stop {
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    flex: 1;
+    max-height: 3.2em;
+    min-height: 2.6em;
+}
+
+.current_stop {
+    background-color: var(--primary);
+}
+
+.stop_list {
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: hidden;
+}
+
+.stop_indicator_container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.stop_indicator {
+    width: var(--stop-circle-size);
+    height: var(--stop-circle-size);
+    background-color: white;
+    border-radius: 5px;
+    margin-right: 5px;
+    border: 3px solid var(--primary);
+    text-align: center;
+}
+
+.stop_indicator:not(.current_stop .stop_indicator)::before {
+    position: absolute;
+    content: '';
+    border-left: var(--circle-line-thickness) solid var(--primary);
+    border-radius: 0px;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--stop-circle-size) / 2 - var(--circle-line-thickness) / 2);
+    z-index: -1;
+}
+
+.current_stop .stop_indicator::before {
+    bottom: 50%;
+}
+
+.stop.final_stop .stop_indicator::before {
+    top: 50%;
+}
+
+.stop_name {
+    display: block;
+    color: var(--primary);
+    border-radius: 4px;
+    margin: 0.4em;
+    padding: 0.1em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+}
+
+.current_stop .stop_name {
+    font-weight: bold;
+    background-color: #ffffff;
+}
