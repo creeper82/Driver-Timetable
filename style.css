@@ -79,11 +79,12 @@ header {
 
 .stop {
     display: flex;
+    align-items: center;
     padding: 0 1em;
     flex: 1;
     max-height: 4.6em;
     min-height: 4em;
-    align-items: center;
+    overflow-x: hidden;
 }
 
 .current_stop {
@@ -96,7 +97,6 @@ header {
     flex-direction: column-reverse;
     font-size: 1.3em;
     overflow-y: hidden;
-    overflow-x: hidden;
     border-bottom: 5px solid black;
     flex: 1;
 }
@@ -171,8 +171,8 @@ header {
 .stop_description {
     display: flex;
     flex-direction: column;
-    /* width: 100%; */
     flex: 1;
+    overflow-x: hidden;
 }
 
 footer {
