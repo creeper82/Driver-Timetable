@@ -9,6 +9,7 @@ class RouteManager {
         this.primaryColor = "#157733"; // default green color
         this.textColorOnPrimary = "white"; // default text color (for next stop)
         this.route = [];
+        this.startTimestamp = null; // bus stop times will be relative to this timestamp
         this.updateUI();
     }
 
@@ -59,7 +60,7 @@ class RouteManager {
 
         // Validate if the values are set correctly
         if (lineNumber == "") alert("Line number not set.");
-        else if (lineNumber.length > 15) alert("Line number too long.")
+        else if (lineNumber.length > 15) alert("Line number too long.");
         else if (destination == "") alert("Destination name not set.");
         else if (destination.length > 50) alert("Destination too long");
         else if (primaryColor == "") alert("Primary color not set.");
@@ -76,7 +77,7 @@ class RouteManager {
             this.updateUI();
         }
     }
-    
+
     updateUI() {
         destName.textContent = this.destination;
         destNumber.textContent = this.lineNumber;
@@ -84,7 +85,13 @@ class RouteManager {
         document.documentElement.style.setProperty("--primary", this.primaryColor);
         document.documentElement.style.setProperty("--on-primary", this.textColorOnPrimary);
 
-        if (this.lineNumber != "---") loadRouteBtn.classList.remove("recommended_action");
+        // animated borders on buttons (recommended actions)
+        if (this.lineNumber != "---") {
+            loadRouteBtn.classList.remove("recommended_action");
+
+            if (this.startTimestamp == null) startRouteBtn.classList.add("recommended_action");
+            else startRouteBtn.classList.remove("recommended_action");
+        }
     }
 }
 
@@ -100,10 +107,23 @@ const destName = document.querySelector("#destination_name");
 const destNumber = document.querySelector("#destination_number");
 
 const loadRouteBtn = document.querySelector("#load_route");
+const startRouteBtn = document.querySelector("#start_route");
+
+const startRouteDialog = document.querySelector("#start_route_dialog");
 
 const rm = new RouteManager();
 
 const fileInput = document.querySelector("#load_route_input");
+
+function showDialog(dialog) { dialog.classList.remove("hidden"); }
+function hideDialog(dialog) { dialog.classList.add("hidden"); }
+
+
+startRouteBtn.addEventListener("click", () => {showDialog(startRouteDialog)});
+
+
+
+// handling file input
 
 fileInput.addEventListener("change", handleFile);
 

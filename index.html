@@ -6,11 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timetable</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="popup.css">
     <link rel="icon" type="image/x-icon" href="favicon.png">
     <script src="index.js" defer></script>
 </head>
 
 <body>
+    <!-- POPUPS -->
+    <div class="popup_container hidden" id="start_route_dialog">
+        <div class="popup">
+            <h3 class="popup_name">Select route start time</h3>
+            <section>
+                <div id="time_picker_container">
+                    <input type="number" name="hour_input" id="hour_input" placeholder="h" min="0" max="24"> :
+                    <input type="number" name="minute_input" id="minute_input" placeholder="m" min="0" max="24"> <br>
+                </div>
+                
+                
+            </section>
+            <div class="popup_footer">
+                    <div class="button" id="use_current_time_button">Use current time</div>
+                    <div class="button" id="accept_start_route_dialog">OK</div>
+                </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- PAGE -->
     <header id="bus_destination">
         <div id="destination_number">66</div>
         <div id="destination_name">Green peak</div>
