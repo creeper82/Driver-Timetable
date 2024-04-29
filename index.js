@@ -9,7 +9,7 @@ class RouteManager {
         this.primaryColor = "#157733"; // default green color
         this.textColorOnPrimary = "white"; // default text color (for next stop)
         this.route = [];
-        this.startTimestamp = null; // bus stop times will be relative to this timestamp
+        this.startTimestamp = null; // route stop times will be relative to this timestamp
         this.updateUI();
     }
 
@@ -28,7 +28,7 @@ class RouteManager {
         // 0 - line number
         // 1 - destination
         // 2 - primaryColor; textColorOnPrimary   [COLORS]
-        // 3 - timeFromRouteStart; busStopName    [BUS STOPS] until end of file
+        // 3 - timeFromRouteStart; stopName    [ROUTE STOPS] until end of file
 
         for (let line of lines) {
             line = line.trim();
@@ -66,7 +66,7 @@ class RouteManager {
         else if (primaryColor == "") alert("Primary color not set.");
         else if (textColorOnPrimary == "") alert("Primary color not set.");
         else if (route.length < 2) alert(`Route must have at least 2 stops. Has: ${route.length}`);
-        else if (route.some(b => b.name == undefined || isNaN(b.time))) alert("Error reading bus stops.");
+        else if (route.some(b => b.name == undefined || isNaN(b.time))) alert("Error reading route stops.");
         else {
             this.destination = destination;
             this.lineNumber = lineNumber;
