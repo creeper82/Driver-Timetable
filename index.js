@@ -83,6 +83,8 @@ class RouteManager {
         // set css variables
         document.documentElement.style.setProperty("--primary", this.primaryColor);
         document.documentElement.style.setProperty("--on-primary", this.textColorOnPrimary);
+
+        if (this.lineNumber != "---") loadRouteBtn.classList.remove("recommended_action");
     }
 }
 
@@ -96,6 +98,8 @@ class BusStop {
 
 const destName = document.querySelector("#destination_name");
 const destNumber = document.querySelector("#destination_number");
+
+const loadRouteBtn = document.querySelector("#load_route");
 
 const rm = new RouteManager();
 
