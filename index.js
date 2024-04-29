@@ -23,6 +23,11 @@ class RouteManager {
         this.renderStops();
     }
 
+    getSecondsUntilNextStop() {
+        if (this.startTimestamp == null) return 0;
+        return Math.ceil((this.route[this.currentStop].timestamp - new Date().getTime()) / 1000);
+    }
+
     parseFromText(text) {
         console.log(text);
         const lines = text.split("\n");
@@ -119,16 +124,6 @@ class RouteManager {
             // reset current stop
             this.currentStop = 0;
         }
-
-        function formatTimestamp(ts) {
-            const date = new Date(ts);
-            const hours = date.getHours().toString();
-            let minutes = date.getMinutes().toString();
-
-            if (minutes < 10) minutes = "0" + minutes;
-
-            return (hours + ":" + minutes);
-        }
     }
 
     updateUI(redrawStops = false) {
@@ -142,7 +137,7 @@ class RouteManager {
         if (this.lineNumber == "---") {
             // route has not been loaded
             startRouteBtn.classList.add("disabled");
-            nextStopButton.classList.add("disabled");
+            liveTimer.classList.add("disabled");
         }
         else {
             // route has been loaded
@@ -152,10 +147,10 @@ class RouteManager {
             if (this.startTimestamp == null) {
                 // route loaded, but not started
                 startRouteBtn.classList.add("recommended_action");
-                nextStopButton.classList.add("disabled");
+                liveTimer.classList.add("disabled");
             } else {
                 // route loaded and started
-                nextStopButton.classList.remove("disabled");
+                liveTimer.classList.remove("disabled");
                 startRouteBtn.classList.remove("recommended_action");
             }
         }
@@ -182,6 +177,7 @@ class RouteStop {
 
 const destName = document.querySelector("#destination_name");
 const destNumber = document.querySelector("#destination_number");
+const clock = document.querySelector("#clock");
 
 const stopList = document.querySelector("#stop_list");
 
@@ -195,8 +191,8 @@ const hourInput = document.querySelector("#hour_input");
 const minuteInput = document.querySelector("#minute_input");
 const timePickerError = document.querySelector("#time_picker_error");
 
-const nextStopButton = document.querySelector("#next_stop_button");
 const settingsButton = document.querySelector("#settings_button");
+const liveTimer = document.querySelector("#live_timer");
 const fileInput = document.querySelector("#load_route_input");
 
 const stopTemplate = document.querySelector("#stop_template");
@@ -222,7 +218,7 @@ startRouteBtn.addEventListener("click", () => {
 startRouteDialogOK.addEventListener("click", handleStartRouteDialog);
 useCurrentTimeBtn.addEventListener("click", setCurrentStartTime);
 
-nextStopButton.addEventListener("click", handleNextStop);
+liveTimer.addEventListener("click", handleNextStop);
 
 
 function handleStartRouteDialog() {
@@ -256,17 +252,50 @@ function setCurrentStartTime() {
     hourInput.value = now.getHours();
     minuteInput.value = leadingZero(now.getMinutes());
 
-    function leadingZero(string) {
-        string = string.toString();
-        if (string.length < 2) return "0" + string;
-        else return string;
-    }
+    
 }
 
 function handleNextStop() {
     routeManager.advanceStop();
 }
 
+function refreshClock() {
+    clock.textContent = formatTimestamp(null, true);
+    const timeUntilNextStop = routeManager.getSecondsUntilNextStop();
+    liveTimer.textContent = formatSeconds(timeUntilNextStop);
+
+    if (timeUntilNextStop < -30) liveTimer.classList.add("delayed")
+    else liveTimer.classList.remove("delayed");
+}
+
+
+setInterval(refreshClock, 1000);
+
+
+// helper functions
+function formatTimestamp(timestamp, variableSemicolon = false) {
+    const date = (timestamp == null) ? new Date() : new Date(timestamp);
+    const hours = date.getHours().toString();
+    const hideSemicolon = (variableSemicolon && (date.getSeconds() % 2 == 0));
+    let minutes = leadingZero(date.getMinutes());
+
+    return hours + (!hideSemicolon ? ":" : " ") + minutes;
+}
+
+function formatSeconds(totalSec) {
+    const negative = (totalSec < 0);
+    if (negative) totalSec *= -1;
+    const minutes = Math.floor(totalSec / 60).toString();
+    const seconds = leadingZero(totalSec - minutes*60);
+
+    return (negative ? "-" : "") + minutes + ":" + seconds;
+}
+
+function leadingZero(string) {
+    string = string.toString();
+    if (string.length < 2) return "0" + string;
+    else return string;
+}
 
 
 // handling file input

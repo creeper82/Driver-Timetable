@@ -52,7 +52,7 @@
     <header id="route_destination">
         <div id="destination_number">66</div>
         <div id="destination_name">Green peak</div>
-        <p id="clock">16:38</p>
+        <p id="clock">--:--</p>
     </header>
     <section id="stop_list"></section>
     <footer>
@@ -60,9 +60,10 @@
             <label id="load_route" for="load_route_input" class="button recommended_action">Load Route</label>
             <input type="file" name="load_route_input" id="load_route_input" accept=".txt">
         </div>
-        <div id="start_route_button" class="button">Select start time</div>
-        <div class="flex_filler"></div>
-        <div id="next_stop_button" class="button">Next stop</div>
+        <div id="start_route_button" class="button">Start route</div>
+        <div id="live_timer_container" class="flex_filler">
+            <div id="live_timer" class="button">0:00</div>
+        </div>
         <div id="settings_button" class="button">Settings</div>
     </footer>
 </body>
