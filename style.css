@@ -179,6 +179,10 @@ footer {
     text-align: center;
     display: flex;
     align-items: center;
+    
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 @keyframes anim-border {
