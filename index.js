@@ -118,7 +118,7 @@ class RouteManager {
         function formatTimestamp(ts) {
             const date = new Date(ts);
             const hours = date.getHours().toString();
-            const minutes = date.getMinutes().toString();
+            let minutes = date.getMinutes().toString();
 
             if (minutes < 10) minutes = "0" + minutes;
 
