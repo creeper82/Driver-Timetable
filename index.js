@@ -10,6 +10,7 @@ class RouteManager {
         this.textColorOnPrimary = "white"; // default text color (for next stop)
         this.route = [];
         this.startTimestamp = null; // route stop times will be relative to this milliseconds timestamp
+        this.currentStop = 0; // index of the current (i.e. the one you will approach to) stop
         this.updateUI();
     }
 
@@ -77,12 +78,12 @@ class RouteManager {
         else if (route.length < 2) alert(`Route must have at least 2 stops. Has: ${route.length}`);
         else if (route.some(b => b.name == undefined || isNaN(b.time))) alert("Error reading route stops.");
         else {
+            this.setDefaults();
             this.destination = destination;
             this.lineNumber = lineNumber;
             this.primaryColor = primaryColor;
             this.textColorOnPrimary = textColorOnPrimary;
             this.route = route;
-            this.startTimestamp = null;
             console.log(this);
             this.updateUI(true);
         }
@@ -158,6 +159,14 @@ class RouteManager {
 
         if (redrawStops) this.renderStops();
     }
+
+    advanceStop() {
+        if (this.currentStop < this.route.length - 1) {
+            this.currentStop++;
+            stopList.firstElementChild.remove();
+            stopList.firstElementChild.classList.add("current_stop");
+        }
+    }
 }
 
 class RouteStop {
@@ -210,6 +219,8 @@ startRouteBtn.addEventListener("click", () => {
 startRouteDialogOK.addEventListener("click", handleStartRouteDialog);
 useCurrentTimeBtn.addEventListener("click", setCurrentStartTime);
 
+nextStopButton.addEventListener("click", handleNextStop);
+
 
 function handleStartRouteDialog() {
     // reset error display
@@ -247,6 +258,10 @@ function setCurrentStartTime() {
         if (string.length < 2) return "0" + string;
         else return string;
     }
+}
+
+function handleNextStop() {
+    routeManager.advanceStop();
 }
 
 
