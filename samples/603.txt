@@ -1,0 +1,34 @@
+603
+Łęczyca/Dworcowa
+#ae0000 white
+
+// POZNAŃ //
+
+0; Garbary PKM
+1; Grochowe Łąki
+3; Małe Garbary
+4; Grobla
+5; Pl. Bernardyński
+8; AWF
+9; Bielniki n/ż
+10; Droga Dębińska n/ż
+11; Hetmańska Wiadukt
+12; Dębina n/ż
+14; Piastowska n/ż
+15; Malinowa n/ż
+16; Łozowa
+17; Azaliowa
+18; Os. Dębina
+
+// LUBOŃ //
+
+20; Luboń/Dębiecka n/ż
+21; Luboń/Zespół Szkół
+23; Luboń/Ratajskiego
+24; Luboń/Park Siewcy
+25; Luboń/Rutkiewicz
+26; Luboń/Lasek n/ż
+
+// ŁĘCZYCA //
+
+27; Łęczyca/Dworcowa

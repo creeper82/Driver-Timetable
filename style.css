@@ -1,3 +1,12 @@
+@media screen and (max-width: 480px) {
+    body header {
+        font-size: 1.2em;
+    }
+
+    body #stop_list {
+        font-size: 1.5em;
+    }
+}
 :root {
     --primary: #157733;
     --on-primary: white;
@@ -20,11 +29,23 @@ body {
     flex-direction: column;
 }
 
+.noDisplay {
+    display: none;
+}
+
+.disabled {
+    pointer-events: none !important;
+}
+
+.disabled:hover {
+    cursor: unset !important;
+}
+
 .flex_filler {
     flex: 1;
 }
 
-#bus_destination {
+header {
     display: flex;
     font-size: 2em;
     padding: 0.2em;
@@ -45,11 +66,15 @@ body {
 #destination_name {
     font-weight: bold;
     flex: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 #clock {
-    margin: 0 0.5em;
     flex: 0;
+    white-space: nowrap;
+    margin: 0 0.5em;
 }
 
 .stop {
@@ -59,17 +84,19 @@ body {
     flex: 1;
     max-height: 4.6em;
     min-height: 4em;
+    overflow-x: hidden;
 }
 
 .current_stop {
     background-color: var(--primary);
+    transition: 500ms background-color linear;
 }
 
-.stop_list {
+#stop_list {
     display: flex;
     flex-direction: column-reverse;
+    font-size: 1.3em;
     overflow-y: hidden;
-    font-size: 1.2em;
     border-bottom: 5px solid black;
     flex: 1;
 }
@@ -119,7 +146,7 @@ body {
     display: block;
     color: black;
     border-radius: 4px;
-    margin: 0 0.3em;
+    margin: 0 0.2em;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -144,28 +171,74 @@ body {
 .stop_description {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    overflow-x: hidden;
 }
 
 footer {
     flex: 0;
-    padding: 0.5em;
+    padding: 0.4em;
     display: flex;
     gap: 0.5em;
     align-items: stretch;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #load_route_input {
     display: none;
 }
 
-.button {
+#load_route {
+    height: 100%;
+}
+
+#live_timer_container {
+    display: flex;
+    justify-content: center;
+    order: -1;
+    flex: 100vw;
+}
+
+.button, #live_timer {
     border: 2px solid black;
     border-radius: 4px;
-    padding: 0.1em;
+    padding: 0.1em 0.3em;
     font-size: 1.2em;
     text-align: center;
     display: flex;
     align-items: center;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#live_timer {
+    position: relative;
+    padding: 0.3em 0.7em;
+    font-size: 1.6em;
+    font-weight: bold;
+    border-width: 4px;
+    transition: 400ms background-color linear;
+}
+
+body #live_timer:hover {
+    background-color: rgb(176, 216, 248);
+}
+
+#live_timer:hover::after {
+    content: "NEXT STOP";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 0.4em;
+}
+
+#live_timer.delayed {
+    background-color: rgb(255 0 0 / 32%)
 }
 
 @keyframes anim-border {

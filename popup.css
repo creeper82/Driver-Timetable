@@ -1,0 +1,76 @@
+.popup_container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 53%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.1s linear;
+}
+
+.popup_container.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.popup {
+    padding: 1em;
+    background-color: white;
+    text-align: center;
+    border: 4px solid black;
+    border-radius: 8px;
+    min-width: 20em;
+    max-width: 75%;
+    box-shadow: 4px 6px 6px 2px #000000b3;
+    opacity: 1;
+    transition: opacity 0.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.popup_container.hidden .popup {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.popup > section {
+    padding: 1em 1em;
+}
+
+.popup_name {
+    text-align: center;
+    margin: 0.5em 0;
+}
+
+.popup_footer {
+    display: flex;
+    margin-top: 1em;
+    justify-content: space-evenly;
+}
+
+.popup_footer .button {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+#time_picker_container {
+    font-size: 2em;
+    padding: 0.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#time_picker_container input {
+    width: 2em;
+    font-size: 1em;
+    text-align: center;
+}
+
+.popup_error {
+    color: red;
+    font-size: 0.75em;
+}
