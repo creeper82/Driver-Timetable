@@ -115,6 +115,9 @@ class RouteManager {
 
             // render new stops
             newStops.forEach(newStop => stopList.appendChild(newStop));
+            
+            // reset current stop
+            this.currentStop = 0;
         }
 
         function formatTimestamp(ts) {
