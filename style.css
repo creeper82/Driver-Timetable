@@ -1,6 +1,6 @@
 :root {
     --primary: #157733;
-    --current-stop-text-color: white;
+    --on-primary: white;
     --stop-circle-size: 1.4em;
     --circle-line-thickness: 8px;
 }
@@ -128,11 +128,11 @@ body {
 
 .current_stop .stop_name {
     font-weight: bold;
-    color: var(--current-stop-text-color);
+    color: var(--on-primary);
 }
 
 .current_stop .stop_time {
-    color: var(--current-stop-text-color);
+    color: var(--on-primary);
 }
 
 .stop_time {

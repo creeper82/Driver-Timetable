@@ -80,6 +80,9 @@ class RouteManager {
     updateUI() {
         destName.textContent = this.destination;
         destNumber.textContent = this.lineNumber;
+        // set css variables
+        document.documentElement.style.setProperty("--primary", this.primaryColor);
+        document.documentElement.style.setProperty("--on-primary", this.textColorOnPrimary);
     }
 }
 
@@ -102,10 +105,7 @@ fileInput.addEventListener("change", handleFile);
 
 function handleFile() {
     const files = this.files;
-    if (files.length === 0) {
-        rm.setDefaults();
-    }
-    else {
+    if (files.length === 1) {
         const file = files[0];
         const reader = new FileReader();
 
