@@ -36,7 +36,7 @@ body {
     flex: 1;
 }
 
-#bus_destination {
+#route_destination {
     display: flex;
     font-size: 2em;
     padding: 0.2em;

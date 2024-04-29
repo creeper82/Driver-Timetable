@@ -3,8 +3,8 @@
 // destination
 // primaryColor textColorOnPrimary (text color on current stop)
 
-// and bus stops as follows:
-// timeFromRouteStart; busStopName
+// and route (in this case bus) stops as follows:
+// timeFromRouteStart; stopName
 
 
 66
