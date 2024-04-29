@@ -75,7 +75,7 @@ body {
 
 .current_stop {
     background-color: var(--primary);
-    transition: 1s background-color linear;
+    transition: 500ms background-color linear;
 }
 
 #stop_list {
