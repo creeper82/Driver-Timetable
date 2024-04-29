@@ -77,7 +77,7 @@ body {
     background-color: var(--primary);
 }
 
-.stop_list {
+#stop_list {
     display: flex;
     flex-direction: column-reverse;
     overflow-y: hidden;
