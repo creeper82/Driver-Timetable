@@ -82,6 +82,7 @@ class RouteManager {
             this.primaryColor = primaryColor;
             this.textColorOnPrimary = textColorOnPrimary;
             this.route = route;
+            this.startTimestamp = null;
             console.log(this);
             this.updateUI(true);
         }
@@ -147,6 +148,7 @@ class RouteManager {
             if (this.startTimestamp == null) {
                 // route loaded, but not started
                 startRouteBtn.classList.add("recommended_action");
+                nextStopButton.classList.add("disabled");
             } else {
                 // route loaded and started
                 nextStopButton.classList.remove("disabled");
