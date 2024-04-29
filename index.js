@@ -19,6 +19,7 @@ class RouteManager {
                 stop.timestamp = this.startTimestamp + (stop.time * 60 * 1000);
             });
         }
+        this.renderStops();
     }
 
     parseFromText(text) {
@@ -82,11 +83,50 @@ class RouteManager {
             this.textColorOnPrimary = textColorOnPrimary;
             this.route = route;
             console.log(this);
-            this.updateUI();
+            this.updateUI(true);
         }
     }
 
-    updateUI() {
+    renderStops() {
+        if (this.route.length > 1) {
+            // prepare new stop list
+            let newStops = [];
+            this.route.forEach(stop => {
+                const templateClone = stopTemplate.content.cloneNode(true);
+                const cloneStopName = templateClone.querySelector(".stop_name");
+                const cloneStopTime = templateClone.querySelector(".stop_time");
+                const cloneStopNumber = templateClone.querySelector(".stop_indicator");
+
+                cloneStopName.textContent = stop.name;
+                cloneStopNumber.textContent = newStops.length + 1;
+                if (stop.timestamp != null) cloneStopTime.textContent = formatTimestamp(stop.timestamp);
+
+                newStops.push(templateClone);
+            });
+
+            // add current and final stop classes
+            newStops[0].firstElementChild.classList.add("current_stop");
+            newStops[newStops.length - 1].firstElementChild.classList.add("final_stop");
+
+            // clear stop list
+            while (stopList.firstChild) stopList.removeChild(stopList.lastChild);
+
+            // render new stops
+            newStops.forEach(newStop => stopList.appendChild(newStop));
+        }
+
+        function formatTimestamp(ts) {
+            const date = new Date(ts);
+            const hours = date.getHours().toString();
+            const minutes = date.getMinutes().toString();
+
+            if (minutes < 10) minutes = "0" + minutes;
+
+            return (hours + ":" + minutes);
+        }
+    }
+
+    updateUI(redrawStops = false) {
         destName.textContent = this.destination;
         destNumber.textContent = this.lineNumber;
         // set css variables
@@ -113,6 +153,8 @@ class RouteManager {
                 startRouteBtn.classList.remove("recommended_action");
             }
         }
+
+        if (redrawStops) this.renderStops();
     }
 }
 
@@ -126,6 +168,8 @@ class RouteStop {
 
 const destName = document.querySelector("#destination_name");
 const destNumber = document.querySelector("#destination_number");
+
+const stopList = document.querySelector("#stop_list");
 
 const loadRouteBtn = document.querySelector("#load_route");
 const startRouteBtn = document.querySelector("#start_route_button");
@@ -141,15 +185,14 @@ const nextStopButton = document.querySelector("#next_stop_button");
 const settingsButton = document.querySelector("#settings_button");
 const fileInput = document.querySelector("#load_route_input");
 
+const stopTemplate = document.querySelector("#stop_template");
+
 
 // RouteManager instance
 const routeManager = new RouteManager();
 
 
-
-
-// route start dialog
-
+// dialog (pop-up) related functions
 function showDialog(dialog) {
     dialog.classList.remove("hidden");
     const focusFirst = dialog.querySelector(".focus_first");
