@@ -20,6 +20,18 @@ body {
     flex-direction: column;
 }
 
+.noDisplay {
+    display: none;
+}
+
+.disabled {
+    pointer-events: none !important;
+}
+
+.disabled:hover {
+    cursor: unset !important;
+}
+
 .flex_filler {
     flex: 1;
 }

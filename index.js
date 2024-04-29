@@ -86,7 +86,13 @@ class RouteManager {
         document.documentElement.style.setProperty("--on-primary", this.textColorOnPrimary);
 
         // animated borders on buttons (recommended actions)
-        if (this.lineNumber != "---") {
+        if (this.lineNumber == "---") {
+            startRouteBtn.classList.add("disabled");
+            nextStopButton.classList.add("disabled");
+        }
+        else {
+            startRouteBtn.classList.remove("disabled");
+            nextStopButton.classList.remove("disabled");
             loadRouteBtn.classList.remove("recommended_action");
 
             if (this.startTimestamp == null) startRouteBtn.classList.add("recommended_action");
@@ -107,19 +113,68 @@ const destName = document.querySelector("#destination_name");
 const destNumber = document.querySelector("#destination_number");
 
 const loadRouteBtn = document.querySelector("#load_route");
-const startRouteBtn = document.querySelector("#start_route");
+const startRouteBtn = document.querySelector("#start_route_button");
 
 const startRouteDialog = document.querySelector("#start_route_dialog");
+const startRouteDialogOK = document.querySelector("#accept_start_route_dialog");
+const useCurrentTimeBtn = document.querySelector("#use_current_time_button");
+const hourInput = document.querySelector("#hour_input");
+const minuteInput = document.querySelector("#minute_input");
+const timePickerError = document.querySelector("#time_picker_error");
 
-const rm = new RouteManager();
-
+const nextStopButton = document.querySelector("#next_stop_button");
+const settingsButton = document.querySelector("#settings_button");
 const fileInput = document.querySelector("#load_route_input");
 
-function showDialog(dialog) { dialog.classList.remove("hidden"); }
+
+// RouteManager instance
+const routeManager = new RouteManager();
+
+
+function showDialog(dialog) {
+    dialog.classList.remove("hidden");
+    const focusFirst = dialog.querySelector(".focus_first");
+    if (focusFirst != null) focusFirst.focus();
+
+}
 function hideDialog(dialog) { dialog.classList.add("hidden"); }
 
 
-startRouteBtn.addEventListener("click", () => {showDialog(startRouteDialog)});
+startRouteBtn.addEventListener("click", () => {
+    showDialog(startRouteDialog); setCurrentStartTime();
+});
+startRouteDialogOK.addEventListener("click", handleStartRouteDialog);
+useCurrentTimeBtn.addEventListener("click", setCurrentStartTime);
+
+
+function handleStartRouteDialog() {
+    // reset error display
+    timePickerError.textContent = "";
+
+    const hour = parseInt(hourInput.value);
+    const minute = parseInt(minuteInput.value);
+
+    // validate inputs
+    if (isNaN(hour) || isNaN(minute) || hour < 0 || hour > 24 || minute < 0 || minute > 59) {
+        timePickerError.textContent = "Set a valid time between 00:00 and 23:59";
+        return;
+    } else {
+        alert("Successfully set the time to " + hour + ":" + minute);
+        const startDate = new Date();
+        startDate.setHours(hour);
+        startDate.setMinutes(minute);
+        startDate.setSeconds(0);
+        routeManager.startTimestamp = startDate.getTime();
+        routeManager.updateUI();
+        hideDialog(startRouteDialog);
+    }
+}
+
+function setCurrentStartTime() {
+    const now = new Date();
+    hourInput.value = now.getHours();
+    minuteInput.value = now.getMinutes();
+}
 
 
 
@@ -134,7 +189,7 @@ function handleFile() {
         const reader = new FileReader();
 
         reader.addEventListener("load", (e) => {
-            rm.parseFromText(e.target.result);
+            routeManager.parseFromText(e.target.result);
         });
 
         reader.readAsText(file);
