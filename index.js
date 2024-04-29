@@ -9,8 +9,16 @@ class RouteManager {
         this.primaryColor = "#157733"; // default green color
         this.textColorOnPrimary = "white"; // default text color (for next stop)
         this.route = [];
-        this.startTimestamp = null; // route stop times will be relative to this timestamp
+        this.startTimestamp = null; // route stop times will be relative to this milliseconds timestamp
         this.updateUI();
+    }
+
+    updateStopTimestamps() {
+        if (this.startTimestamp != null) {
+            this.route.forEach(stop => {
+                stop.timestamp = this.startTimestamp + (stop.time * 60 * 1000);
+            });
+        }
     }
 
     parseFromText(text) {
@@ -87,16 +95,23 @@ class RouteManager {
 
         // animated borders on buttons (recommended actions)
         if (this.lineNumber == "---") {
+            // route has not been loaded
             startRouteBtn.classList.add("disabled");
             nextStopButton.classList.add("disabled");
         }
         else {
+            // route has been loaded
             startRouteBtn.classList.remove("disabled");
-            nextStopButton.classList.remove("disabled");
             loadRouteBtn.classList.remove("recommended_action");
 
-            if (this.startTimestamp == null) startRouteBtn.classList.add("recommended_action");
-            else startRouteBtn.classList.remove("recommended_action");
+            if (this.startTimestamp == null) {
+                // route loaded, but not started
+                startRouteBtn.classList.add("recommended_action");
+            } else {
+                // route loaded and started
+                nextStopButton.classList.remove("disabled");
+                startRouteBtn.classList.remove("recommended_action");
+            }
         }
     }
 }
@@ -131,6 +146,10 @@ const fileInput = document.querySelector("#load_route_input");
 const routeManager = new RouteManager();
 
 
+
+
+// route start dialog
+
 function showDialog(dialog) {
     dialog.classList.remove("hidden");
     const focusFirst = dialog.querySelector(".focus_first");
@@ -159,12 +178,15 @@ function handleStartRouteDialog() {
         timePickerError.textContent = "Set a valid time between 00:00 and 23:59";
         return;
     } else {
-        alert("Successfully set the time to " + hour + ":" + minute);
         const startDate = new Date();
         startDate.setHours(hour);
         startDate.setMinutes(minute);
         startDate.setSeconds(0);
+        startDate.setMilliseconds(0);
+
+        // set the route start timestamp and hide dialog
         routeManager.startTimestamp = startDate.getTime();
+        routeManager.updateStopTimestamps();
         routeManager.updateUI();
         hideDialog(startRouteDialog);
     }
@@ -173,7 +195,13 @@ function handleStartRouteDialog() {
 function setCurrentStartTime() {
     const now = new Date();
     hourInput.value = now.getHours();
-    minuteInput.value = now.getMinutes();
+    minuteInput.value = leadingZero(now.getMinutes());
+
+    function leadingZero(string) {
+        string = string.toString();
+        if (string.length < 2) return "0" + string;
+        else return string;
+    }
 }
 
 
