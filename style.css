@@ -24,7 +24,7 @@ body {
     flex: 1;
 }
 
-.bus_destination {
+#bus_destination {
     display: flex;
     font-size: 2em;
     padding: 0.2em;
@@ -34,19 +34,20 @@ body {
     flex: 0;
 }
 
-.destination_number {
+#destination_number {
     border: 6px solid var(--primary);
     border-radius: 8px;
     padding: 0.2em;
     flex: 0;
+    white-space: nowrap;
 }
 
-.destination_name {
+#destination_name {
     font-weight: bold;
     flex: 1;
 }
 
-.clock {
+#clock {
     margin: 0 0.5em;
     flex: 0;
 }
@@ -165,6 +166,24 @@ footer {
     text-align: center;
     display: flex;
     align-items: center;
+}
+
+@keyframes anim-border {
+    from {
+        border-style: solid;
+    }
+    50% {
+        border-style: dashed;
+    }
+    to {
+        border-style: solid
+    }
+}
+
+.button.recommended_action {
+    animation-name: anim-border;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
 }
 
 .button:hover {

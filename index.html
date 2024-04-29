@@ -11,10 +11,10 @@
 </head>
 
 <body>
-    <header class="bus_destination">
-        <div class="destination_number">66</div>
-        <div class="destination_name">Green peak</div>
-        <p class="clock">16:38</p>
+    <header id="bus_destination">
+        <div id="destination_number">66</div>
+        <div id="destination_name">Green peak</div>
+        <p id="clock">16:38</p>
     </header>
     <section class="stop_list">
         <div class="stop current_stop">
@@ -76,8 +76,8 @@
         </div>
     </section>
     <footer>
-        <div id="load_route_container" class="button">
-            <label id="load_route" for="load_route_input">Load Route</label> <br>
+        <div id="load_route_container">
+            <label id="load_route" for="load_route_input" class="button">Load Route</label>
             <input type="file" name="load_route_input" id="load_route_input" accept=".txt">
         </div>
         <div id="start_route" class="button">Select start time</div>
