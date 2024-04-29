@@ -51,7 +51,7 @@ class RouteManager {
                 case 3:
                     [stopTime, stopName] = line.split(";").map(x => x.trim());
                     stopTime = Number(stopTime);
-                    route.push(new BusStop(stopTime, stopName));
+                    route.push(new RouteStop(stopTime, stopName));
                     break;
             }
 
@@ -101,7 +101,7 @@ class RouteManager {
     }
 }
 
-class BusStop {
+class RouteStop {
     constructor(time, name) {
         this.name = name;
         this.time = time;
