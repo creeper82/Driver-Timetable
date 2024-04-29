@@ -1,0 +1,19 @@
+// Route file looks as follows:
+// number
+// destination
+// primaryColor textColorOnPrimary (text color on current stop)
+
+// and bus stops as follows:
+// timeFromRouteStart; busStopName
+
+
+66
+Green Peak
+#157733 white
+
+0; AJ Auto Repairs
+4; Utah Viewpoint
+8; Building Site
+13; Industrial Ruin
+17; Utah Airport
+20; Green Peak

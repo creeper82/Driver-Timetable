@@ -1,0 +1,192 @@
+:root {
+    --primary: #157733;
+    --on-primary: white;
+    --stop-circle-size: 1.4em;
+    --circle-line-thickness: 8px;
+}
+
+html {
+    font-family: Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.flex_filler {
+    flex: 1;
+}
+
+#bus_destination {
+    display: flex;
+    font-size: 2em;
+    padding: 0.2em;
+    gap: 0.5em;
+    align-items: center;
+    border-bottom: 5px solid black;
+    flex: 0;
+}
+
+#destination_number {
+    border: 6px solid var(--primary);
+    border-radius: 8px;
+    padding: 0.2em;
+    flex: 0;
+    white-space: nowrap;
+}
+
+#destination_name {
+    font-weight: bold;
+    flex: 1;
+}
+
+#clock {
+    margin: 0 0.5em;
+    flex: 0;
+}
+
+.stop {
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    flex: 1;
+    max-height: 4.6em;
+    min-height: 4em;
+}
+
+.current_stop {
+    background-color: var(--primary);
+}
+
+.stop_list {
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: hidden;
+    font-size: 1.2em;
+    border-bottom: 5px solid black;
+    flex: 1;
+}
+
+.stop_indicator_container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.stop_indicator {
+    width: var(--stop-circle-size);
+    height: var(--stop-circle-size);
+    background-color: white;
+    border-radius: 5px;
+    margin-right: 5px;
+    border: 3px solid var(--primary);
+    text-align: center;
+}
+
+.stop_indicator:not(.current_stop .stop_indicator)::before {
+    position: absolute;
+    content: '';
+    border-left: var(--circle-line-thickness) solid var(--primary);
+    border-radius: 0px;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--stop-circle-size) / 2 - var(--circle-line-thickness) / 2);
+    z-index: -1;
+}
+
+.current_stop .stop_indicator::before {
+    bottom: 50%;
+}
+
+.stop.final_stop .stop_indicator::before {
+    top: 50%;
+}
+
+.stop.current_stop .stop_indicator {
+    border-color: black;
+}
+
+.stop_name {
+    display: block;
+    color: black;
+    border-radius: 4px;
+    margin: 0 0.3em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+}
+
+.current_stop .stop_name {
+    font-weight: bold;
+    color: var(--on-primary);
+}
+
+.current_stop .stop_time {
+    color: var(--on-primary);
+}
+
+.stop_time {
+    margin: 0 0.3em;
+    color: gray;
+    font-size: 0.7em;
+}
+
+.stop_description {
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    flex: 0;
+    padding: 0.5em;
+    display: flex;
+    gap: 0.5em;
+    align-items: stretch;
+}
+
+#load_route_input {
+    display: none;
+}
+
+.button {
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 0.1em;
+    font-size: 1.2em;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+@keyframes anim-border {
+    from {
+        border-style: solid;
+    }
+    50% {
+        border-style: dashed;
+    }
+    to {
+        border-style: solid
+    }
+}
+
+.button.recommended_action {
+    animation-name: anim-border;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: rgb(176, 216, 248);
+}
