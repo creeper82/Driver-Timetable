@@ -1,3 +1,15 @@
+// Route file looks as follows:
+// number
+// destination
+// primaryColor textColorOnPrimary (text color on current stop)
+
+// and route (in this case bus) stops as follows:
+// timeFromRouteStart; stopName
+
+// slash comments and empty lines aren't parsed
+
+// real bus route in Poznań, Poland:
+
 603
 Łęczyca/Dworcowa
 #ae0000 white
