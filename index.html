@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,19 +32,18 @@
             <h3 class="popup_name">Select route start time</h3>
             <section>
                 <div id="time_picker_container">
-                    <input type="number" name="hour_input" id="hour_input" class="focus_first" placeholder="0" min="0" max="24"> :
+                    <input type="number" name="hour_input" id="hour_input" class="focus_first" placeholder="0" min="0"
+                        max="24"> :
                     <input type="number" name="minute_input" id="minute_input" placeholder="00" min="0" max="59"> <br>
                 </div>
                 <p id="time_picker_error" class="popup_error"></p>
             </section>
             <div class="popup_footer">
-                    <div class="button" id="use_current_time_button">Use current time</div>
-                    <div class="button" id="accept_start_route_dialog">OK</div>
-                </div>
+                <div class="button" id="use_current_time_button">Use current time</div>
+                <div class="button" id="accept_start_route_dialog">OK</div>
+            </div>
         </div>
     </div>
-
-
 
 
     <!-- PAGE -->
@@ -56,16 +54,17 @@
     </header>
     <section id="stop_list"></section>
     <footer>
-        <div id="load_route_container">
-            <label id="load_route" for="load_route_input" class="button recommended_action">Load Route</label>
-            <input type="file" name="load_route_input" id="load_route_input" accept=".txt">
-        </div>
-        <div id="start_route_button" class="button">Start route</div>
         <div id="live_timer_container" class="flex_filler">
-             <!-- at the moment this is moved to the beginning of footer with css. might change it later -->
             <div id="live_timer" class="button">0:00</div>
         </div>
-        <div id="settings_button" class="button">Settings</div>
+        <div id="buttons_container">
+            <div id="load_route_container">
+                <label id="load_route" for="load_route_input" class="button recommended_action">Load Route</label>
+                <input type="file" name="load_route_input" id="load_route_input" accept=".txt">
+            </div>
+            <div id="start_route_button" class="button">Start route</div>
+            <div id="settings_button" class="button">Settings</div>
+        </div>
     </footer>
 </body>
 

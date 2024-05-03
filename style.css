@@ -7,6 +7,7 @@
         font-size: 1.5em;
     }
 }
+
 :root {
     --primary: #157733;
     --on-primary: white;
@@ -179,10 +180,15 @@ footer {
     flex: 0;
     padding: 0.4em;
     display: flex;
+    flex-direction: column;
     gap: 0.5em;
-    align-items: stretch;
-    flex-wrap: wrap;
+}
+
+#buttons_container {
+    display: flex;
     justify-content: center;
+    gap: 0.6em;
+    align-items: stretch;
 }
 
 #load_route_input {
@@ -196,8 +202,6 @@ footer {
 #live_timer_container {
     display: flex;
     justify-content: center;
-    order: -1;
-    flex: 100vw;
 }
 
 .button, #live_timer {
@@ -245,9 +249,11 @@ body #live_timer:hover {
     from {
         border-style: solid;
     }
+
     50% {
         border-style: dashed;
     }
+
     to {
         border-style: solid
     }
