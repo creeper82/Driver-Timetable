@@ -6,7 +6,6 @@
 // and route (in this case bus) stops as follows:
 // timeFromRouteStart; stopName
 
-
 66
 Green Peak
 #157733 white
@@ -17,3 +16,6 @@ Green Peak
 13; Industrial Ruin
 17; Utah Airport
 20; Green Peak
+
+// Route from BeamNG.drive game, map: Utah. Stop times are random
+// That's one of the greatest games for all the vehicle enthusiasts out there
