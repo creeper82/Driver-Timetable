@@ -11,7 +11,7 @@
 :root {
     --primary: #157733;
     --on-primary: white;
-    --stop-circle-size: 1.4em;
+    --stop-circle-size: 1.5em;
     --circle-line-thickness: 8px;
 }
 
@@ -102,6 +102,10 @@ header {
     flex: 1;
 }
 
+#stop_list.large_route {
+    --stop-circle-size: 2.1em;
+}
+
 .stop_indicator_container {
     position: relative;
     height: 100%;
@@ -118,6 +122,9 @@ header {
     margin-right: 5px;
     border: 3px solid var(--primary);
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .stop_indicator:not(.current_stop .stop_indicator)::before {

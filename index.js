@@ -35,8 +35,9 @@ class RouteManager {
             alert("Route too long."); return;
         }
         if (lines.length > 99) {
+            stopList.classList.add("large_route");
             alert("Routes with over 100 stops might be buggy or load longer.");
-        }
+        } else stopList.classList.remove("large_route");
 
         let destination = "";
         let lineNumber = "";
