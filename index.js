@@ -217,7 +217,9 @@ startRouteBtn.addEventListener("click", () => {
     showDialog(startRouteDialog); setCurrentStartTime();
 });
 startRouteDialogOK.addEventListener("click", handleStartRouteDialog);
-
+startRouteDialogCloseBtn.addEventListener("click", () => {
+    hideDialog(startRouteDialog);
+})
 useCurrentTimeBtn.addEventListener("click", setCurrentStartTime);
 
 liveTimer.addEventListener("click", handleNextStop);
