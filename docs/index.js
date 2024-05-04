@@ -35,10 +35,7 @@ class RouteManager {
         if (lines.length > 9999) {
             alert("Route too long."); return;
         }
-        if (lines.length > 99) {
-            stopList.classList.add("large_route");
-            alert("Routes with over 100 stops might be buggy or load longer.");
-        } else stopList.classList.remove("large_route");
+        
 
         let destination = "";
         let lineNumber = "";
@@ -92,6 +89,10 @@ class RouteManager {
         else if (route.length < 2) alert(`Route must have at least 2 stops. Has: ${route.length}`);
         else if (route.some(b => b.name == undefined || isNaN(b.time))) alert("Error reading route stops.");
         else {
+            if (lines.length > 99) {
+                stopList.classList.add("large_route");
+                alert("Routes with over 100 stops might be buggy or load longer.");
+            } else stopList.classList.remove("large_route");
             this.setDefaults();
             this.destination = destination;
             this.lineNumber = lineNumber;
