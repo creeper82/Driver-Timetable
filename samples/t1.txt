@@ -1,0 +1,14 @@
+// sample from the routes documentation
+
+T1
+Thornton Interchange
+#e78025 black
+
+0; Thornton Interchange
+10; Main Road
+18; Crossley Street
+25; Western Road
+32; Thornton Drive
+40; Saltwell Common
+48; Legrams Lane
+65; Thornton Interchange
