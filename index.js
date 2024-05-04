@@ -1,6 +1,7 @@
 class RouteManager {
     constructor() {
         this.setDefaults();
+        setInterval(() => this.refreshClock(), 1000);
     }
 
     setDefaults() {
@@ -29,8 +30,16 @@ class RouteManager {
     }
 
     parseFromText(text) {
-        console.log(text);
         const lines = text.split("\n");
+
+        if (lines.length > 9999) {
+            alert("Route too long."); return;
+        }
+        if (lines.length > 99) {
+            stopList.classList.add("large_route");
+            alert("Routes with over 100 stops might be buggy or load longer.");
+        } else stopList.classList.remove("large_route");
+
         let destination = "";
         let lineNumber = "";
         let primaryColor = "";
@@ -89,7 +98,6 @@ class RouteManager {
             this.primaryColor = primaryColor;
             this.textColorOnPrimary = textColorOnPrimary;
             this.route = route;
-            console.log(this);
             this.updateUI(true);
         }
     }
@@ -120,7 +128,7 @@ class RouteManager {
 
             // render new stops
             newStops.forEach(newStop => stopList.appendChild(newStop));
-            
+
             // reset current stop
             this.currentStop = 0;
         }
@@ -156,14 +164,25 @@ class RouteManager {
         }
 
         if (redrawStops) this.renderStops();
+        this.refreshClock();
     }
 
     advanceStop() {
-        if (this.currentStop < this.route.length - 1) {
+        if (this.currentStop < this.route.length - 1 && this.startTimestamp != null) {
             this.currentStop++;
             stopList.firstElementChild.remove();
             stopList.firstElementChild.classList.add("current_stop");
+            this.refreshClock();
         }
+    }
+
+    refreshClock() {
+        clock.textContent = formatTimestamp(null, true);
+        const timeUntilNextStop = this.getSecondsUntilNextStop();
+        liveTimer.textContent = formatSeconds(timeUntilNextStop);
+
+        if (timeUntilNextStop < -30) liveTimer.classList.add("delayed");
+        else liveTimer.classList.remove("delayed");
     }
 }
 
@@ -185,29 +204,26 @@ const loadRouteBtn = document.querySelector("#load_route");
 const startRouteBtn = document.querySelector("#start_route_button");
 
 const startRouteDialog = document.querySelector("#start_route_dialog");
-const startRouteDialogOK = document.querySelector("#accept_start_route_dialog");
-const useCurrentTimeBtn = document.querySelector("#use_current_time_button");
-const hourInput = document.querySelector("#hour_input");
-const minuteInput = document.querySelector("#minute_input");
-const timePickerError = document.querySelector("#time_picker_error");
+const startRouteDialogOK = startRouteDialog.querySelector("#accept_start_route_dialog");
+const startRouteDialogCloseBtn = startRouteDialog.querySelector("#start_route_dialog_close_button");
+const useCurrentTimeBtn = startRouteDialog.querySelector("#use_current_time_button");
+const hourInput = startRouteDialog.querySelector("#hour_input");
+const minuteInput = startRouteDialog.querySelector("#minute_input");
+const timePickerError = startRouteDialog.querySelector("#time_picker_error");
 
-const settingsButton = document.querySelector("#settings_button");
 const liveTimer = document.querySelector("#live_timer");
 const fileInput = document.querySelector("#load_route_input");
 
 const stopTemplate = document.querySelector("#stop_template");
 
 
-// RouteManager instance
-const routeManager = new RouteManager();
-
 
 // dialog (pop-up) related functions
 function showDialog(dialog) {
     dialog.classList.remove("hidden");
     const focusFirst = dialog.querySelector(".focus_first");
-    if (focusFirst != null) focusFirst.focus();
 
+    if (focusFirst != null) focusFirst.focus();
 }
 function hideDialog(dialog) { dialog.classList.add("hidden"); }
 
@@ -216,6 +232,9 @@ startRouteBtn.addEventListener("click", () => {
     showDialog(startRouteDialog); setCurrentStartTime();
 });
 startRouteDialogOK.addEventListener("click", handleStartRouteDialog);
+startRouteDialogCloseBtn.addEventListener("click", () => {
+    hideDialog(startRouteDialog);
+});
 useCurrentTimeBtn.addEventListener("click", setCurrentStartTime);
 
 liveTimer.addEventListener("click", handleNextStop);
@@ -251,25 +270,11 @@ function setCurrentStartTime() {
     const now = new Date();
     hourInput.value = now.getHours();
     minuteInput.value = leadingZero(now.getMinutes());
-
-    
 }
 
 function handleNextStop() {
     routeManager.advanceStop();
 }
-
-function refreshClock() {
-    clock.textContent = formatTimestamp(null, true);
-    const timeUntilNextStop = routeManager.getSecondsUntilNextStop();
-    liveTimer.textContent = formatSeconds(timeUntilNextStop);
-
-    if (timeUntilNextStop < -30) liveTimer.classList.add("delayed")
-    else liveTimer.classList.remove("delayed");
-}
-
-
-setInterval(refreshClock, 1000);
 
 
 // helper functions
@@ -286,7 +291,7 @@ function formatSeconds(totalSec) {
     const negative = (totalSec < 0);
     if (negative) totalSec *= -1;
     const minutes = Math.floor(totalSec / 60).toString();
-    const seconds = leadingZero(totalSec - minutes*60);
+    const seconds = leadingZero(totalSec - minutes * 60);
 
     return (negative ? "-" : "") + minutes + ":" + seconds;
 }
@@ -304,6 +309,7 @@ fileInput.addEventListener("change", handleFile);
 
 function handleFile() {
     const files = this.files;
+
     if (files.length === 1) {
         const file = files[0];
         const reader = new FileReader();
@@ -315,3 +321,7 @@ function handleFile() {
         reader.readAsText(file);
     }
 }
+
+
+// RouteManager instance
+const routeManager = new RouteManager();
