@@ -185,11 +185,12 @@ const loadRouteBtn = document.querySelector("#load_route");
 const startRouteBtn = document.querySelector("#start_route_button");
 
 const startRouteDialog = document.querySelector("#start_route_dialog");
-const startRouteDialogOK = document.querySelector("#accept_start_route_dialog");
-const useCurrentTimeBtn = document.querySelector("#use_current_time_button");
-const hourInput = document.querySelector("#hour_input");
-const minuteInput = document.querySelector("#minute_input");
-const timePickerError = document.querySelector("#time_picker_error");
+const startRouteDialogOK = startRouteDialog.querySelector("#accept_start_route_dialog");
+const startRouteDialogCloseBtn = startRouteDialog.querySelector("#start_route_dialog_close_button")
+const useCurrentTimeBtn = startRouteDialog.querySelector("#use_current_time_button");
+const hourInput = startRouteDialog.querySelector("#hour_input");
+const minuteInput = startRouteDialog.querySelector("#minute_input");
+const timePickerError = startRouteDialog.querySelector("#time_picker_error");
 
 const settingsButton = document.querySelector("#settings_button");
 const liveTimer = document.querySelector("#live_timer");
@@ -216,6 +217,7 @@ startRouteBtn.addEventListener("click", () => {
     showDialog(startRouteDialog); setCurrentStartTime();
 });
 startRouteDialogOK.addEventListener("click", handleStartRouteDialog);
+
 useCurrentTimeBtn.addEventListener("click", setCurrentStartTime);
 
 liveTimer.addEventListener("click", handleNextStop);
