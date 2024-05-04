@@ -29,8 +29,15 @@ class RouteManager {
     }
 
     parseFromText(text) {
-        console.log(text);
         const lines = text.split("\n");
+
+        if (lines.length > 9999) {
+            alert("Route too long."); return;
+        }
+        if (lines.length > 99) {
+            alert("Routes with over 100 stops might be buggy or load longer.");
+        }
+
         let destination = "";
         let lineNumber = "";
         let primaryColor = "";
@@ -89,7 +96,6 @@ class RouteManager {
             this.primaryColor = primaryColor;
             this.textColorOnPrimary = textColorOnPrimary;
             this.route = route;
-            console.log(this);
             this.updateUI(true);
         }
     }
@@ -159,7 +165,7 @@ class RouteManager {
     }
 
     advanceStop() {
-        if (this.currentStop < this.route.length - 1) {
+        if (this.currentStop < this.route.length - 1 && this.startTimestamp != null) {
             this.currentStop++;
             stopList.firstElementChild.remove();
             stopList.firstElementChild.classList.add("current_stop");
@@ -207,8 +213,8 @@ const routeManager = new RouteManager();
 function showDialog(dialog) {
     dialog.classList.remove("hidden");
     const focusFirst = dialog.querySelector(".focus_first");
-    if (focusFirst != null) focusFirst.focus();
 
+    if (focusFirst != null) focusFirst.focus();
 }
 function hideDialog(dialog) { dialog.classList.add("hidden"); }
 
@@ -255,8 +261,6 @@ function setCurrentStartTime() {
     const now = new Date();
     hourInput.value = now.getHours();
     minuteInput.value = leadingZero(now.getMinutes());
-
-    
 }
 
 function handleNextStop() {
@@ -308,6 +312,7 @@ fileInput.addEventListener("change", handleFile);
 
 function handleFile() {
     const files = this.files;
+
     if (files.length === 1) {
         const file = files[0];
         const reader = new FileReader();
