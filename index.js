@@ -235,6 +235,15 @@ startRouteDialogOK.addEventListener("click", handleStartRouteDialog);
 startRouteDialogCloseBtn.addEventListener("click", () => {
     hideDialog(startRouteDialog);
 });
+
+minuteInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") handleStartRouteDialog();
+});
+hourInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") handleStartRouteDialog();
+});
+
+
 useCurrentTimeBtn.addEventListener("click", setCurrentStartTime);
 
 liveTimer.addEventListener("click", handleNextStop);
