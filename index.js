@@ -211,7 +211,6 @@ const hourInput = startRouteDialog.querySelector("#hour_input");
 const minuteInput = startRouteDialog.querySelector("#minute_input");
 const timePickerError = startRouteDialog.querySelector("#time_picker_error");
 
-const settingsButton = document.querySelector("#settings_button");
 const liveTimer = document.querySelector("#live_timer");
 const fileInput = document.querySelector("#load_route_input");
 
